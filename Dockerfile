@@ -7,14 +7,11 @@ RUN apk add --no-cache libc6-compat
 
 COPY package.json package-lock.json* ./
 
-# If lockfile exists, use ci (deterministic). Otherwise, install.
-# --prefer-offline uses local cache when possible.
-# Retry logic handles transient network issues.
 RUN if [ -f package-lock.json ]; then \
-      npm ci --prefer-offline --no-audit --no-fund || \
-      npm ci --no-audit --no-fund; \
+    npm ci --prefer-offline --no-audit --no-fund 2>/dev/null || \
+    npm ci --no-audit --no-fund 2>/dev/null; \
     else \
-      npm install --no-audit --no-fund; \
+    npm install --no-audit --no-fund 2>/dev/null; \
     fi
 
 # ── Stage 2: Build ──
@@ -24,7 +21,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Disable telemetry during build
+# Ensure public dir exists (Next.js standalone expects it)
+RUN mkdir -p public
+
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 
@@ -41,7 +40,7 @@ ENV HOSTNAME="0.0.0.0"
 
 # Security: run as non-root
 RUN addgroup --system --gid 1001 nodejs \
- && adduser --system --uid 1001 nextjs
+    && adduser --system --uid 1001 nextjs
 
 # Copy only what's needed for standalone mode
 COPY --from=builder /app/public ./public
@@ -53,6 +52,6 @@ EXPOSE 3000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
-  CMD wget -qO- http://localhost:3000/ || exit 1
+    CMD wget -qO- http://localhost:3000/ || exit 1
 
 CMD ["node", "server.js"]
