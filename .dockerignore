@@ -1,7 +1,39 @@
-node_modules
-.next
-.git
+# Dependencies (will be installed inside container)
+node_modules/
+
+# Build output
+.next/
+out/
+dist/
+
+# Version control
+.git/
 .gitignore
-*.md
+
+# Docker files (avoid recursive context)
 docker-compose.yml
-.env*
+docker-compose*.yml
+
+# Nginx (mounted as volume, not part of app build)
+nginx/
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Docs
+*.md
+LICENSE
+
+# Scripts
+Makefile
+deploy.sh

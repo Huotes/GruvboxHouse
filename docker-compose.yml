@@ -1,24 +1,50 @@
 services:
-  gruvbox-house:
+  # ── Next.js Application ──
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: gruvbox-house
-    ports:
-      - "3000:3000"
+    container_name: gruvbox-app
+    restart: unless-stopped
     environment:
       - NODE_ENV=production
-    restart: unless-stopped
+      - HOSTNAME=0.0.0.0
+      - PORT=3000
+    expose:
+      - "3000"
+    networks:
+      - gruvbox-net
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
 
-  # Dev service — uncomment to use
-  # gruvbox-house-dev:
-  #   image: node:22-alpine
-  #   working_dir: /app
-  #   volumes:
-  #     - .:/app
-  #     - /app/node_modules
-  #   ports:
-  #     - "3000:3000"
-  #   command: sh -c "npm install && npm run dev"
-  #   environment:
-  #     - NODE_ENV=development
+  # ── Nginx Reverse Proxy ──
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: gruvbox-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      # Uncomment for HTTPS:
+      # - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      # Uncomment for SSL:
+      # - ./nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - gruvbox-net
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:80/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+networks:
+  gruvbox-net:
+    driver: bridge
