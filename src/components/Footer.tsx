@@ -2,55 +2,36 @@
 
 import Image from "next/image";
 import { Heart } from "lucide-react";
-import { WHATSAPP_LINK, WHATSAPP_DISPLAY, EMAIL } from "@/lib/constants";
+import { WA_LINK, WA_DISPLAY, EMAIL } from "@/lib/constants";
 
 const LINKS = [
-  { title: "Navegação", items: [
-    { label: "Serviços", href: "#servicos" },
-    { label: "Processo", href: "#processo" },
-    { label: "Tecnologias", href: "#tecnologias" },
-    { label: "Contato", href: "#contato" },
-  ]},
-  { title: "Serviços", items: [
-    { label: "Sites & Sistemas", href: "#servicos" },
-    { label: "Automações", href: "#servicos" },
-    { label: "Apps Mobile", href: "#servicos" },
-    { label: "Consultoria", href: "#servicos" },
-  ]},
-  { title: "Fale Conosco", items: [
-    { label: EMAIL, href: `mailto:${EMAIL}` },
-    { label: WHATSAPP_DISPLAY, href: WHATSAPP_LINK },
-    { label: "Orçamento Grátis", href: "#contato" },
-  ]},
+  { title: "Navegação", items: [{ l: "Serviços", h: "#servicos" }, { l: "Processo", h: "#processo" }, { l: "Tecnologias", h: "#tecnologias" }, { l: "Contato", h: "#contato" }] },
+  { title: "Serviços", items: [{ l: "Sites & Sistemas", h: "#servicos" }, { l: "Automações", h: "#servicos" }, { l: "Apps Mobile", h: "#servicos" }, { l: "Consultoria", h: "#servicos" }] },
+  { title: "Fale Conosco", items: [{ l: EMAIL, h: `mailto:${EMAIL}` }, { l: WA_DISPLAY, h: WA_LINK }, { l: "Orçamento Grátis", h: "#contato" }] },
 ] as const;
 
 export function Footer() {
   return (
-    <footer className="section-padding pb-8" style={{ background: "var(--bg-soft)", borderTop: "1px solid var(--card-border)" }}>
+    <footer className="section-padding pb-8" style={{ background: "var(--bg-deep)", borderTop: "1px solid var(--card-border)" }}>
       <div className="mx-auto max-w-5xl">
-        <div className="grid gap-12 md:grid-cols-4">
-          <div>
-            <a href="#" className="mb-4 flex items-center gap-2.5 font-display text-lg font-bold" style={{ color: "var(--fg)", textDecoration: "none" }}>
+        <div className="grid gap-12 text-center md:grid-cols-4 md:text-left">
+          <div className="flex flex-col items-center md:items-start">
+            <a href="#" className="mb-4 flex items-center gap-2.5 font-display text-lg font-extrabold" style={{ color: "var(--fg)", textDecoration: "none" }}>
               <Image src="/assets/gruvboxhouse_logo.png" alt="Logo" width={32} height={32} className="rounded-lg" />
               Gruvbox<span style={{ color: "var(--accent)" }}> House</span>
             </a>
-            <p className="text-sm leading-relaxed" style={{ color: "var(--fg-muted)" }}>
-              Software sob medida. Rápido, acessível e sem complicação.
-            </p>
+            <p className="text-sm leading-relaxed" style={{ color: "var(--fg-muted)" }}>Software sob medida. Rápido, acessível e sem complicação.</p>
           </div>
-          {LINKS.map((g) => (
+          {LINKS.map(g => (
             <div key={g.title}>
-              <h4 className="mb-4 font-display text-sm font-bold" style={{ color: "var(--fg)" }}>{g.title}</h4>
+              <h4 className="mb-4 font-display text-xs font-extrabold uppercase tracking-[0.2em]" style={{ color: "var(--fg)" }}>{g.title}</h4>
               <ul className="flex flex-col gap-2.5">
-                {g.items.map((l) => (
-                  <li key={l.label}>
-                    <a href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="text-sm transition-colors duration-200"
-                      style={{ color: "var(--fg-muted)", textDecoration: "none" }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent)")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = "var(--fg-muted)")}>
-                      {l.label}
-                    </a>
+                {g.items.map(i => (
+                  <li key={i.l}>
+                    <a href={i.h} target={i.h.startsWith("http") ? "_blank" : undefined} rel={i.h.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="text-sm transition-colors duration-200" style={{ color: "var(--fg-muted)", textDecoration: "none" }}
+                      onMouseEnter={e => (e.currentTarget.style.color = "var(--accent)")}
+                      onMouseLeave={e => (e.currentTarget.style.color = "var(--fg-muted)")}>{i.l}</a>
                   </li>
                 ))}
               </ul>

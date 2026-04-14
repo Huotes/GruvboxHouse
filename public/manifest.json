@@ -1,1 +1,9 @@
-{"name":"Gruvbox House","short_name":"GH","description":"Software sob medida para o seu negócio","start_url":"/","display":"standalone","background_color":"#1d2021","theme_color":"#8ec07c"}
+{
+  "name": "Gruvbox House",
+  "short_name": "GH",
+  "description": "Software sob medida para o seu negócio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1d2021",
+  "theme_color": "#8ec07c"
+}
