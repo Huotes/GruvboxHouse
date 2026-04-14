@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { useTheme } from "@/context/ThemeContext";
-import { Sun, Moon, Menu, X, Terminal } from "lucide-react";
+import { Sun, Moon, Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { href: "#servicos", label: "Serviços" },
@@ -24,7 +25,9 @@ export function Header() {
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [menuOpen]);
 
   return (
@@ -43,12 +46,14 @@ export function Header() {
           className="flex items-center gap-2.5 font-display text-xl font-bold tracking-tight"
           style={{ color: "var(--fg)", textDecoration: "none" }}
         >
-          <span
-            className="flex h-9 w-9 items-center justify-center rounded-lg"
-            style={{ background: "var(--accent)", color: "var(--bg)" }}
-          >
-            <Terminal size={20} strokeWidth={2.5} />
-          </span>
+          <Image
+            src="/assets/gruvboxhouse_logo.png"
+            alt="Gruvbox House Logo"
+            width={36}
+            height={36}
+            className="rounded-lg"
+            priority
+          />
           <span>
             Gruvbox<span style={{ color: "var(--accent)" }}> House</span>
           </span>
@@ -73,7 +78,6 @@ export function Header() {
             </a>
           ))}
 
-          {/* Theme toggle */}
           <button
             onClick={toggleTheme}
             aria-label={
@@ -89,7 +93,11 @@ export function Header() {
             {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
           </button>
 
-          <a href="#contato" className="btn-primary" style={{ padding: "0.6rem 1.5rem", fontSize: "0.875rem" }}>
+          <a
+            href="#contato"
+            className="btn-primary"
+            style={{ padding: "0.6rem 1.5rem", fontSize: "0.875rem" }}
+          >
             Orçamento Grátis
           </a>
         </div>
@@ -135,6 +143,14 @@ export function Header() {
           >
             <X size={28} />
           </button>
+
+          <Image
+            src="/assets/gruvboxhouse_logo.png"
+            alt="Gruvbox House Logo"
+            width={64}
+            height={64}
+            className="mb-4 rounded-xl"
+          />
 
           {NAV_LINKS.map((link) => (
             <a

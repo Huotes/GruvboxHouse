@@ -14,10 +14,12 @@ export const metadata: Metadata = {
     "sistema",
     "orçamento grátis",
   ],
+  icons: {
+    icon: "/favicon.ico",
+  },
   openGraph: {
     title: "Gruvbox House — Software sob medida",
-    description:
-      "Automações e sistemas web sob encomenda. Orçamento grátis.",
+    description: "Automações e sistemas web sob encomenda. Orçamento grátis.",
     type: "website",
     locale: "pt_BR",
   },
@@ -41,7 +43,6 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
-        {/* Prevent FOUC — set theme before paint */}
         <script
           dangerouslySetInnerHTML={{
             __html: `

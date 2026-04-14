@@ -1,6 +1,7 @@
 "use client";
 
-import { Terminal, Heart } from "lucide-react";
+import Image from "next/image";
+import { Heart } from "lucide-react";
 
 const FOOTER_LINKS = [
   {
@@ -24,7 +25,10 @@ const FOOTER_LINKS = [
   {
     title: "Contato",
     links: [
-      { label: "gruvboxhouse@gmail.com", href: "mailto:gruvboxhouse@gmail.com" },
+      {
+        label: "gruvboxhouse@gmail.com",
+        href: "mailto:gruvboxhouse@gmail.com",
+      },
       { label: "Orçamento Grátis", href: "#contato" },
     ],
   },
@@ -50,17 +54,21 @@ export function Footer() {
               className="mb-4 flex items-center gap-2.5 font-display text-lg font-bold"
               style={{ color: "var(--fg)", textDecoration: "none" }}
             >
-              <span
-                className="flex h-8 w-8 items-center justify-center rounded-lg"
-                style={{ background: "var(--accent)", color: "var(--bg)" }}
-              >
-                <Terminal size={16} strokeWidth={2.5} />
-              </span>
+              <Image
+                src="/assets/gruvboxhouse_logo.png"
+                alt="Gruvbox House Logo"
+                width={32}
+                height={32}
+                className="rounded-lg"
+              />
               Gruvbox<span style={{ color: "var(--accent)" }}> House</span>
             </a>
-            <p className="text-sm leading-relaxed" style={{ color: "var(--fg-muted)" }}>
-              Software sob medida para o seu negócio.
-              Rápido, acessível e sem complicação.
+            <p
+              className="text-sm leading-relaxed"
+              style={{ color: "var(--fg-muted)" }}
+            >
+              Software sob medida para o seu negócio. Rápido, acessível e sem
+              complicação.
             </p>
           </div>
 
