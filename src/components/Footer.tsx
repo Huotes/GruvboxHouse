@@ -12,11 +12,11 @@ const LINKS = [
 
 export function Footer() {
   return (
-    <footer className="section-padding pb-8" style={{ background: "var(--bg-deep)", borderTop: "1px solid var(--card-border)" }}>
-      <div className="mx-auto max-w-5xl">
-        <div className="grid gap-12 text-center md:grid-cols-4 md:text-left">
+    <footer className="section-padding pb-10" style={{ background: "var(--bg-deep)", borderTop: "1px solid var(--card-border)" }}>
+      <div className="section-inner">
+        <div className="mx-auto grid max-w-5xl gap-14 text-center md:grid-cols-4 md:text-left">
           <div className="flex flex-col items-center md:items-start">
-            <a href="#" className="mb-4 flex items-center gap-2.5 font-display text-lg font-extrabold" style={{ color: "var(--fg)", textDecoration: "none" }}>
+            <a href="#" className="mb-5 flex items-center gap-2.5 font-display text-lg font-extrabold" style={{ color: "var(--fg)", textDecoration: "none" }}>
               <Image src="/assets/gruvboxhouse_logo.png" alt="Logo" width={32} height={32} className="rounded-lg" />
               Gruvbox<span style={{ color: "var(--accent)" }}> House</span>
             </a>
@@ -24,8 +24,8 @@ export function Footer() {
           </div>
           {LINKS.map(g => (
             <div key={g.title}>
-              <h4 className="mb-4 font-display text-xs font-extrabold uppercase tracking-[0.2em]" style={{ color: "var(--fg)" }}>{g.title}</h4>
-              <ul className="flex flex-col gap-2.5">
+              <h4 className="mb-5 font-display text-xs font-extrabold uppercase tracking-[0.2em]" style={{ color: "var(--fg)" }}>{g.title}</h4>
+              <ul className="flex flex-col gap-3">
                 {g.items.map(i => (
                   <li key={i.l}>
                     <a href={i.h} target={i.h.startsWith("http") ? "_blank" : undefined} rel={i.h.startsWith("http") ? "noopener noreferrer" : undefined}
@@ -38,7 +38,7 @@ export function Footer() {
             </div>
           ))}
         </div>
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 sm:flex-row" style={{ borderColor: "var(--card-border)" }}>
+        <div className="mx-auto mt-14 flex max-w-5xl flex-col items-center justify-between gap-4 border-t pt-10 sm:flex-row" style={{ borderColor: "var(--card-border)" }}>
           <p className="text-xs" style={{ color: "var(--fg-muted)" }}>&copy; {new Date().getFullYear()} Gruvbox House. Todos os direitos reservados.</p>
           <p className="flex items-center gap-1 text-xs" style={{ color: "var(--fg-muted)" }}>
             Feito com <Heart size={12} style={{ color: "var(--red)" }} /> e muito café
