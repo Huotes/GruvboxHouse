@@ -32,14 +32,15 @@ export function Header() {
 
   return (
     <header
-      className="fixed top-0 inset-x-0 z-40 transition-all duration-500"
+      className="fixed top-0 inset-x-0 transition-all duration-500"
       style={{
+        zIndex: 100,
         background: scrolled ? "var(--glass)" : "transparent",
         backdropFilter: scrolled ? "blur(24px)" : "none",
         borderBottom: scrolled ? "1px solid var(--card-border)" : "none",
       }}
     >
-      <nav className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4">
+      <nav className="mx-auto flex w-full max-w-[1100px] items-center justify-between px-6 py-4">
         <motion.a
           href="#" className="flex items-center gap-2.5"
           style={{ textDecoration: "none" }}

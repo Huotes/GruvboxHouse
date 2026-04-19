@@ -1,56 +1,64 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type CSSProperties } from "react";
 import { motion } from "motion/react";
 import { Send, Mail, Clock, MessageCircle } from "lucide-react";
 import { useInView } from "@/lib/useInView";
 import { WA_LINK, WA_DISPLAY, EMAIL } from "@/lib/constants";
 
-interface F {
+interface ContactForm {
   name: string;
   email: string;
   message: string;
 }
 
+const inputStyle: CSSProperties = {
+  width: "100%",
+  padding: "1rem 1.2rem",
+  background: "var(--bg1)",
+  color: "var(--fg)",
+  border: "1px solid var(--card-border)",
+  borderRadius: "14px",
+  fontFamily: "var(--font-body)",
+  fontSize: "1rem",
+  outline: "none",
+  transition: "border-color 0.2s, box-shadow 0.2s",
+};
+
+function handleFocus(
+  e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+): void {
+  e.currentTarget.style.borderColor = "var(--accent)";
+  e.currentTarget.style.boxShadow = "0 0 16px var(--accent-glow)";
+}
+
+function handleBlur(
+  e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+): void {
+  e.currentTarget.style.borderColor = "var(--card-border)";
+  e.currentTarget.style.boxShadow = "none";
+}
+
 export function Contact() {
   const { ref, isInView } = useInView();
-  const [f, setF] = useState<F>({ name: "", email: "", message: "" });
+  const [form, setForm] = useState<ContactForm>({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [sent, setSent] = useState(false);
 
-  function submit(e: FormEvent) {
+  function submit(e: FormEvent): void {
     e.preventDefault();
-    const s = encodeURIComponent(`[GruvboxHouse] Contato de ${f.name}`);
-    const b = encodeURIComponent(
-      `Nome: ${f.name}\nE-mail: ${f.email}\n\n${f.message}`,
+    const subject = encodeURIComponent(
+      `[GruvboxHouse] Contato de ${form.name}`,
     );
-    window.open(`mailto:${EMAIL}?subject=${s}&body=${b}`, "_blank");
+    const body = encodeURIComponent(
+      `Nome: ${form.name}\nE-mail: ${form.email}\n\n${form.message}`,
+    );
+    window.open(`mailto:${EMAIL}?subject=${subject}&body=${body}`, "_blank");
     setSent(true);
   }
-
-  const inp: React.CSSProperties = {
-    width: "100%",
-    padding: "1rem 1.2rem",
-    background: "var(--bg1)",
-    color: "var(--fg)",
-    border: "1px solid var(--card-border)",
-    borderRadius: "14px",
-    fontFamily: "var(--font-body)",
-    fontSize: "1rem",
-    outline: "none",
-    transition: "border-color 0.2s, box-shadow 0.2s",
-  };
-  const focus = (
-    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    e.currentTarget.style.borderColor = "var(--accent)";
-    e.currentTarget.style.boxShadow = "0 0 16px var(--accent-glow)";
-  };
-  const blur = (
-    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    e.currentTarget.style.borderColor = "var(--card-border)";
-    e.currentTarget.style.boxShadow = "none";
-  };
 
   return (
     <section
@@ -59,7 +67,7 @@ export function Contact() {
       style={{ background: "var(--bg)" }}
     >
       <div className="section-inner" ref={ref}>
-        <div className="mx-auto mb-16 max-w-2xl">
+        <div className="mx-auto mb-16 max-w-[640px]">
           <span
             className="font-mono text-xs font-bold uppercase tracking-[0.2em]"
             style={{ color: "var(--accent)" }}
@@ -80,20 +88,25 @@ export function Contact() {
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-5xl items-start gap-12 lg:grid-cols-5">
-          {/* Info */}
-          <motion.div
-            className="flex flex-col gap-6 lg:col-span-2"
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5 }}
+        <motion.div
+          className="mx-auto flex w-full max-w-[900px] flex-col gap-10"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+        >
+          <div
+            className="grid w-full"
+            style={{
+              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gap: "1.25rem",
+            }}
           >
             <a
               href={WA_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-card !flex-row !items-center !text-left gap-5"
-              style={{ textDecoration: "none" }}
+              className="glass-card"
+              style={{ flexDirection: "row", alignItems: "center", gap: "1rem", textAlign: "left" }}
             >
               <div
                 className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl"
@@ -128,8 +141,8 @@ export function Contact() {
 
             <a
               href={`mailto:${EMAIL}`}
-              className="glass-card !flex-row !items-center !text-left gap-5"
-              style={{ textDecoration: "none" }}
+              className="glass-card"
+              style={{ flexDirection: "row", alignItems: "center", gap: "1rem", textAlign: "left" }}
             >
               <div
                 className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl"
@@ -157,7 +170,10 @@ export function Contact() {
               </div>
             </a>
 
-            <div className="glass-card !flex-row !items-center !text-left gap-5">
+            <div
+              className="glass-card"
+              style={{ flexDirection: "row", alignItems: "center", gap: "1rem", textAlign: "left" }}
+            >
               <div
                 className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl"
                 style={{
@@ -183,146 +199,138 @@ export function Contact() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Form */}
-          <motion.div
-            className="lg:col-span-3"
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            {sent ? (
-              <div className="glass-card flex flex-col items-center py-20">
-                <div
-                  className="mb-5 flex h-16 w-16 items-center justify-center rounded-full"
-                  style={{
-                    background:
-                      "color-mix(in srgb, var(--aqua) 12%, transparent)",
-                    color: "var(--aqua)",
-                  }}
-                >
-                  <Send size={28} />
-                </div>
-                <h3
-                  className="font-display text-2xl font-black"
+          {sent ? (
+            <div className="glass-card glass-card--centered py-20">
+              <div
+                className="mb-5 flex h-16 w-16 items-center justify-center rounded-full"
+                style={{
+                  background:
+                    "color-mix(in srgb, var(--aqua) 12%, transparent)",
+                  color: "var(--aqua)",
+                }}
+              >
+                <Send size={28} />
+              </div>
+              <h3
+                className="font-display text-2xl font-black"
+                style={{ color: "var(--fg)" }}
+              >
+                Mensagem pronta!
+              </h3>
+              <p
+                className="mt-3 max-w-sm text-base"
+                style={{ color: "var(--fg-muted)" }}
+              >
+                Seu app de e-mail abriu com a mensagem.
+              </p>
+              <button
+                onClick={() => setSent(false)}
+                className="btn-secondary mt-8"
+                style={{ padding: "0.7rem 1.8rem", fontSize: "0.85rem" }}
+              >
+                Enviar outra
+              </button>
+            </div>
+          ) : (
+            <form
+              onSubmit={submit}
+              className="glass-card"
+              style={{ gap: "1.5rem", textAlign: "left" }}
+            >
+              <div>
+                <label
+                  htmlFor="cn"
+                  className="mb-2 block font-display text-sm font-bold"
                   style={{ color: "var(--fg)" }}
                 >
-                  Mensagem pronta!
-                </h3>
-                <p
-                  className="mt-3 max-w-sm text-base"
-                  style={{ color: "var(--fg-muted)" }}
-                >
-                  Seu app de e-mail abriu com a mensagem.
-                </p>
-                <button
-                  onClick={() => setSent(false)}
-                  className="btn-secondary mt-8"
-                  style={{ padding: "0.7rem 1.8rem", fontSize: "0.85rem" }}
-                >
-                  Enviar outra
-                </button>
+                  Seu nome
+                </label>
+                <input
+                  id="cn"
+                  type="text"
+                  required
+                  placeholder="Como podemos te chamar?"
+                  value={form.name}
+                  onChange={(e) =>
+                    setForm((p) => ({ ...p, name: e.target.value }))
+                  }
+                  style={inputStyle}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                />
               </div>
-            ) : (
-              <form
-                onSubmit={submit}
-                className="glass-card !items-stretch !text-left"
-                style={{ gap: "1.5rem" }}
+              <div>
+                <label
+                  htmlFor="ce"
+                  className="mb-2 block font-display text-sm font-bold"
+                  style={{ color: "var(--fg)" }}
+                >
+                  Seu e-mail
+                </label>
+                <input
+                  id="ce"
+                  type="email"
+                  required
+                  placeholder="seuemail@exemplo.com"
+                  value={form.email}
+                  onChange={(e) =>
+                    setForm((p) => ({ ...p, email: e.target.value }))
+                  }
+                  style={inputStyle}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="cm"
+                  className="mb-2 block font-display text-sm font-bold"
+                  style={{ color: "var(--fg)" }}
+                >
+                  Sua ideia
+                </label>
+                <textarea
+                  id="cm"
+                  required
+                  rows={5}
+                  placeholder="Descreva seu projeto..."
+                  value={form.message}
+                  onChange={(e) =>
+                    setForm((p) => ({ ...p, message: e.target.value }))
+                  }
+                  style={{ ...inputStyle, resize: "vertical" }}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                />
+              </div>
+              <motion.button
+                type="submit"
+                className="btn-primary self-center sm:self-start"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
               >
-                <div>
-                  <label
-                    htmlFor="cn"
-                    className="mb-2 block font-display text-sm font-bold"
-                    style={{ color: "var(--fg)" }}
-                  >
-                    Seu nome
-                  </label>
-                  <input
-                    id="cn"
-                    type="text"
-                    required
-                    placeholder="Como podemos te chamar?"
-                    value={f.name}
-                    onChange={(e) =>
-                      setF((p) => ({ ...p, name: e.target.value }))
-                    }
-                    style={inp}
-                    onFocus={focus}
-                    onBlur={blur}
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="ce"
-                    className="mb-2 block font-display text-sm font-bold"
-                    style={{ color: "var(--fg)" }}
-                  >
-                    Seu e-mail
-                  </label>
-                  <input
-                    id="ce"
-                    type="email"
-                    required
-                    placeholder="seuemail@exemplo.com"
-                    value={f.email}
-                    onChange={(e) =>
-                      setF((p) => ({ ...p, email: e.target.value }))
-                    }
-                    style={inp}
-                    onFocus={focus}
-                    onBlur={blur}
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="cm"
-                    className="mb-2 block font-display text-sm font-bold"
-                    style={{ color: "var(--fg)" }}
-                  >
-                    Sua ideia
-                  </label>
-                  <textarea
-                    id="cm"
-                    required
-                    rows={5}
-                    placeholder="Descreva seu projeto..."
-                    value={f.message}
-                    onChange={(e) =>
-                      setF((p) => ({ ...p, message: e.target.value }))
-                    }
-                    style={{ ...inp, resize: "vertical" as const }}
-                    onFocus={focus}
-                    onBlur={blur}
-                  />
-                </div>
-                <motion.button
-                  type="submit"
-                  className="btn-primary self-center sm:self-start"
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.96 }}
+                <Send size={16} /> Enviar mensagem
+              </motion.button>
+              <p
+                className="text-center text-xs sm:text-left"
+                style={{ color: "var(--fg-muted)" }}
+              >
+                Prefere WhatsApp?{" "}
+                <a
+                  href={WA_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "#25D366", textDecoration: "underline" }}
                 >
-                  <Send size={16} /> Enviar mensagem
-                </motion.button>
-                <p
-                  className="text-center text-xs sm:text-left"
-                  style={{ color: "var(--fg-muted)" }}
-                >
-                  Prefere WhatsApp?{" "}
-                  <a
-                    href={WA_LINK}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: "#25D366", textDecoration: "underline" }}
-                  >
-                    Clique aqui
-                  </a>
-                  .
-                </p>
-              </form>
-            )}
-          </motion.div>
-        </div>
+                  Clique aqui
+                </a>
+                .
+              </p>
+            </form>
+          )}
+        </motion.div>
       </div>
     </section>
   );

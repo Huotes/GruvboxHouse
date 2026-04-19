@@ -5,28 +5,16 @@ import { motion } from "motion/react";
 import { useInView } from "@/lib/useInView";
 import { Planet, Spaceship } from "./SpaceDecorations";
 
-/**
- * Tipagem correta das tecnologias
- */
-type Tech =
-  | {
-      name: string;
-      icon: string;
-      tagline: string;
-      desc: string;
-      color: string;
-      letter?: never;
-    }
-  | {
-      name: string;
-      icon: null;
-      tagline: string;
-      desc: string;
-      color: string;
-      letter: string;
-    };
+interface Tech {
+  readonly name: string;
+  readonly icon: string | null;
+  readonly letter?: string;
+  readonly tagline: string;
+  readonly desc: string;
+  readonly color: string;
+}
 
-const TECHS: Tech[] = [
+const TECHS: readonly Tech[] = [
   {
     name: "Python",
     icon: "/icons/black-python.svg",
@@ -123,14 +111,20 @@ export function Technologies() {
           Você não precisa entender de tecnologia — a gente domina por você.
         </motion.p>
 
-        <div className="mx-auto mt-16 grid max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          className="mx-auto mt-16 grid w-full max-w-[1000px]"
+          style={{
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: "1.5rem",
+          }}
+        >
           {TECHS.map((t, i) => (
             <motion.div
               key={t.name}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.2 + i * 0.08 }}
-              className="glass-card relative"
+              className="glass-card glass-card--centered glass-card-equal relative"
             >
               <div
                 className="absolute inset-x-0 top-0 h-0.5"
@@ -159,7 +153,7 @@ export function Technologies() {
                     className="font-mono text-2xl font-extrabold"
                     style={{ color: t.color }}
                   >
-                    {"letter" in t && t.letter ? t.letter : t.name.slice(0, 2)}
+                    {t.letter ?? t.name.slice(0, 2)}
                   </span>
                 )}
               </motion.div>
@@ -188,16 +182,6 @@ export function Technologies() {
           ))}
         </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.6 }}
-          className="mx-auto mt-12 max-w-2xl text-sm"
-          style={{ color: "var(--fg-muted)" }}
-        >
-          Também usamos Next.js, Redis, Kubernetes, AWS e mais — sempre a melhor
-          ferramenta para cada projeto.
-        </motion.p>
       </div>
     </section>
   );

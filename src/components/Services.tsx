@@ -90,7 +90,13 @@ export function Services() {
           Tecnologia pensada para quem quer resultado — não complicação. Cada projeto nasce de uma conversa sobre a sua ideia e se transforma em software sob medida, com as ferramentas certas para cada desafio.
         </motion.p>
 
-        <div className="mx-auto mt-16 grid max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          className="mx-auto mt-16 grid w-full max-w-[1000px]"
+          style={{
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: "1.5rem",
+          }}
+        >
           {SVC.map((s, i) => {
             const Icon = s.icon;
             return (
@@ -99,7 +105,7 @@ export function Services() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.2 + i * 0.08, duration: 0.5 }}
-                className="glass-card glass-card-equal"
+                className="glass-card glass-card--centered glass-card-equal"
               >
                 <motion.div
                   className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl"

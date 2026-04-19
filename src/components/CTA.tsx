@@ -44,8 +44,11 @@ export function CTA() {
         {/* Stats */}
         <div
           ref={r1}
-          className="mx-auto mb-24 grid max-w-4xl grid-cols-2 gap-6 rounded-2xl p-10 md:grid-cols-4"
+          className="mx-auto mb-24 grid w-full max-w-[900px] rounded-2xl"
           style={{
+            gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+            gap: "1.5rem",
+            padding: "48px 32px",
             background: "var(--bg1)",
             border: "1px solid var(--card-border)",
           }}
@@ -89,14 +92,20 @@ export function CTA() {
             Quem já <span className="text-gradient">confiou</span> na gente
           </h2>
 
-          <div className="mx-auto mt-14 grid max-w-5xl gap-8 md:grid-cols-3">
+          <div
+            className="mx-auto mt-14 grid w-full max-w-[1000px]"
+            style={{
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "1.5rem",
+            }}
+          >
             {DEPS.map((d, i) => (
               <motion.article
                 key={d.n}
                 initial={{ opacity: 0, y: 24 }}
                 animate={v2 ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.1 + i * 0.08 }}
-                className="glass-card !items-start !text-left"
+                className="glass-card glass-card-equal text-left"
               >
                 <Quote
                   size={24}
@@ -141,7 +150,7 @@ export function CTA() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="animate-pulse-neon relative mx-auto mt-24 max-w-4xl overflow-hidden rounded-3xl p-12 text-center sm:p-20"
+          className="animate-pulse-neon relative mx-auto mt-24 w-full max-w-[900px] overflow-hidden rounded-3xl p-12 text-center sm:p-20"
           style={{
             background:
               "linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--neon) 70%, var(--accent)))",
@@ -149,10 +158,6 @@ export function CTA() {
         >
           <Spaceship x="5%" y="10%" size={60} className="opacity-30" />
           <Planet size={50} x="85%" y="-10%" color="var(--bg)" className="opacity-20" />
-          <div
-            className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-20"
-            style={{ background: "var(--bg)" }}
-          />
           <h2
             className="relative font-display text-3xl font-black uppercase tracking-wide sm:text-4xl md:text-5xl"
             style={{ color: "var(--bg)" }}

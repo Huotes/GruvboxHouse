@@ -67,7 +67,13 @@ export function HowItWorks() {
           <span className="text-gradient">4 passos</span>
         </motion.h2>
 
-        <div className="mx-auto mt-16 grid max-w-4xl gap-8 sm:grid-cols-2">
+        <div
+          className="mx-auto mt-16 grid w-full max-w-[1000px]"
+          style={{
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "1.5rem",
+          }}
+        >
           {STEPS.map((s, i) => {
             const Icon = s.icon;
             return (
@@ -76,7 +82,7 @@ export function HowItWorks() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.2 + i * 0.1 }}
-                className="glass-card"
+                className="glass-card glass-card--centered glass-card-equal"
               >
                 <motion.div
                   className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl"

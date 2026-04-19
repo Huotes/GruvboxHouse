@@ -10,7 +10,7 @@ export function Hero() {
   const { theme } = useTheme();
   return (
     <section
-      className="starfield relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 text-center"
+      className="starfield relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center"
       style={{ background: "var(--bg-deep)" }}
     >
       <Nebula />
@@ -21,12 +21,12 @@ export function Hero() {
       <Spaceship x="70%" y="12%" size={80} />
       <FloatingAlien x="88%" y="35%" size={40} />
 
-      <div className="section-inner relative z-10">
+      <div className="relative z-10 mx-auto w-full max-w-[900px] text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="animate-pulse-neon mb-10 inline-flex items-center gap-2 rounded-full px-6 py-3 font-mono text-xs font-bold uppercase tracking-widest"
+          className="animate-pulse-neon mb-10 inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-widest"
           style={{
             background: "var(--accent-glow)",
             color: "var(--accent)",
@@ -47,8 +47,8 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25, duration: 0.6 }}
-          className="mx-auto max-w-4xl font-display text-5xl font-black leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
-          style={{ color: "var(--fg)" }}
+          className="mx-auto max-w-[800px] font-display font-black leading-[1.05] tracking-tight"
+          style={{ color: "var(--fg)", fontSize: "clamp(42px, 8vw, 88px)" }}
         >
           Sua ideia{" "}
           <span className="text-gradient text-glow">merece decolar.</span>
@@ -58,7 +58,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45 }}
-          className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed sm:text-xl md:text-2xl"
+          className="mx-auto mt-8 max-w-[640px] text-lg leading-relaxed sm:text-xl md:text-2xl"
           style={{ color: "var(--fg-muted)" }}
         >
           Tem um projeto que precisa do digital mas não sabe por onde começar? A{" "}
