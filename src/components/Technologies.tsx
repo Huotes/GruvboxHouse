@@ -5,7 +5,28 @@ import { motion } from "motion/react";
 import { useInView } from "@/lib/useInView";
 import { Planet, Spaceship } from "./SpaceDecorations";
 
-const TECHS = [
+/**
+ * Tipagem correta das tecnologias
+ */
+type Tech =
+  | {
+      name: string;
+      icon: string;
+      tagline: string;
+      desc: string;
+      color: string;
+      letter?: never;
+    }
+  | {
+      name: string;
+      icon: null;
+      tagline: string;
+      desc: string;
+      color: string;
+      letter: string;
+    };
+
+const TECHS: Tech[] = [
   {
     name: "Python",
     icon: "/icons/black-python.svg",
@@ -51,10 +72,11 @@ const TECHS = [
     color: "var(--orange)",
     letter: "Pg",
   },
-] as const;
+];
 
 export function Technologies() {
   const { ref, isInView } = useInView();
+
   return (
     <section
       id="tecnologias"
@@ -80,6 +102,7 @@ export function Technologies() {
         >
           // Tecnologias
         </motion.span>
+
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -89,6 +112,7 @@ export function Technologies() {
         >
           Ferramentas de <span className="text-gradient">outro mundo</span>
         </motion.h2>
+
         <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
@@ -114,6 +138,7 @@ export function Technologies() {
                   background: `linear-gradient(90deg, transparent, ${t.color}, transparent)`,
                 }}
               />
+
               <motion.div
                 className="mb-5 flex h-20 w-20 items-center justify-center rounded-2xl"
                 style={{
@@ -134,22 +159,25 @@ export function Technologies() {
                     className="font-mono text-2xl font-extrabold"
                     style={{ color: t.color }}
                   >
-                    {"letter" in t ? t.letter : t.name.slice(0, 2)}
+                    {"letter" in t && t.letter ? t.letter : t.name.slice(0, 2)}
                   </span>
                 )}
               </motion.div>
+
               <h3
                 className="font-display text-2xl font-black"
                 style={{ color: "var(--fg)" }}
               >
                 {t.name}
               </h3>
+
               <span
                 className="mt-1 inline-block font-mono text-[0.65rem] font-extrabold uppercase tracking-[0.2em]"
                 style={{ color: t.color }}
               >
                 {t.tagline}
               </span>
+
               <p
                 className="mt-4 text-base leading-relaxed"
                 style={{ color: "var(--fg-muted)" }}
