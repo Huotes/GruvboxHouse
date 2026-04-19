@@ -46,9 +46,9 @@ export function Header() {
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
         >
-          <Image src="/assets/gruvboxhouse_logo.png" alt="Gruvbox House" width={36} height={36} className="rounded-lg" priority />
+          <Image src="/assets/gruvboxhouse_logo.png" alt="GruvboxHouse" width={36} height={36} className="rounded-lg" priority />
           <span className="font-display text-lg font-extrabold tracking-tight" style={{ color: "var(--fg)" }}>
-            Gruvbox<span style={{ color: "var(--accent)" }}> House</span>
+            GruvboxHouse
           </span>
         </motion.a>
 

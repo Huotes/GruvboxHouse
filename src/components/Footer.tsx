@@ -18,7 +18,7 @@ export function Footer() {
           <div className="flex flex-col items-center md:items-start">
             <a href="#" className="mb-5 flex items-center gap-2.5 font-display text-lg font-extrabold" style={{ color: "var(--fg)", textDecoration: "none" }}>
               <Image src="/assets/gruvboxhouse_logo.png" alt="Logo" width={32} height={32} className="rounded-lg" />
-              Gruvbox<span style={{ color: "var(--accent)" }}> House</span>
+              GruvboxHouse
             </a>
             <p className="text-sm leading-relaxed" style={{ color: "var(--fg-muted)" }}>Software sob medida. Rápido, acessível e sem complicação.</p>
           </div>
@@ -39,7 +39,7 @@ export function Footer() {
           ))}
         </div>
         <div className="mx-auto mt-14 flex max-w-5xl flex-col items-center justify-between gap-4 border-t pt-10 sm:flex-row" style={{ borderColor: "var(--card-border)" }}>
-          <p className="text-xs" style={{ color: "var(--fg-muted)" }}>&copy; {new Date().getFullYear()} Gruvbox House. Todos os direitos reservados.</p>
+          <p className="text-xs" style={{ color: "var(--fg-muted)" }}>&copy; {new Date().getFullYear()} GruvboxHouse. Todos os direitos reservados.</p>
           <p className="flex items-center gap-1 text-xs" style={{ color: "var(--fg-muted)" }}>
             Feito com <Heart size={12} style={{ color: "var(--red)" }} /> e muito café
           </p>

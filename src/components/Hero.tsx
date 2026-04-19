@@ -3,35 +3,23 @@
 import { motion } from "motion/react";
 import { MessageCircle, ArrowDown } from "lucide-react";
 import { WA_LINK } from "@/lib/constants";
+import { useTheme } from "@/context/ThemeContext";
+import { Nebula, OrbitDot, Planet, Spaceship, FloatingAlien } from "./SpaceDecorations";
 
 export function Hero() {
+  const { theme } = useTheme();
   return (
     <section
       className="starfield relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 text-center"
       style={{ background: "var(--bg-deep)" }}
     >
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div
-          className="absolute left-1/2 top-0 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/4 rounded-full opacity-20 blur-[120px]"
-          style={{ background: "var(--accent)" }}
-        />
-        <div
-          className="absolute bottom-0 left-0 h-80 w-80 rounded-full opacity-10 blur-[100px]"
-          style={{ background: "var(--neon)" }}
-        />
-        <div
-          className="absolute right-0 top-1/3 h-64 w-64 rounded-full opacity-10 blur-[80px]"
-          style={{ background: "var(--blue)" }}
-        />
-        <div
-          className="absolute left-1/2 top-1/2 h-2 w-2 rounded-full"
-          style={{
-            background: "var(--accent)",
-            animation: "spin-slow 20s linear infinite",
-            transformOrigin: "-120px 0",
-          }}
-        />
-      </div>
+      <Nebula />
+      <OrbitDot radius={160} duration={25} size={3} />
+      <OrbitDot radius={240} duration={40} size={2} delay={5} />
+      <Planet size={180} x="-5%" y="15%" color="var(--accent)" rings />
+      <Planet size={80} x="85%" y="60%" color="var(--neon)" />
+      <Spaceship x="70%" y="12%" size={80} />
+      <FloatingAlien x="88%" y="35%" size={40} />
 
       <div className="section-inner relative z-10">
         <motion.div
@@ -52,7 +40,7 @@ export function Hero() {
               boxShadow: "0 0 8px var(--accent)",
             }}
           />
-          Orçamento gratuito
+          {theme === "dark" ? "// Transmissão interestelar" : "// Sinal captado de Marte"}
         </motion.div>
 
         <motion.h1
@@ -74,7 +62,7 @@ export function Hero() {
           style={{ color: "var(--fg-muted)" }}
         >
           Tem um projeto que precisa do digital mas não sabe por onde começar? A{" "}
-          <strong style={{ color: "var(--accent)" }}>Gruvbox House</strong>{" "}
+          <strong style={{ color: "var(--accent)" }}>GruvboxHouse</strong>{" "}
           transforma sua ideia em software — rápido, acessível e sob medida.
         </motion.p>
 

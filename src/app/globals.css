@@ -1,34 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --bg:       #f9f5d7;
-  --bg-deep:  #f2e5bc;
-  --bg1:      #ebdbb2;
-  --bg2:      #d5c4a1;
-  --bg3:      #bdae93;
+  --bg:       #fdf4e3;
+  --bg-deep:  #f9ecce;
+  --bg1:      #f2e5bc;
+  --bg2:      #e8d8a8;
+  --bg3:      #d5c4a1;
   --fg:       #3c3836;
   --fg-soft:  #504945;
   --fg-muted: #665c54;
   --red: #9d0006; --green: #79740e; --yellow: #b57614;
   --blue: #076678; --purple: #8f3f71; --aqua: #427b58; --orange: #af3a03;
   --accent:       #af3a03;
-  --accent-glow:  rgba(175, 58, 3, 0.25);
-  --accent-glow-s:rgba(175, 58, 3, 0.45);
+  --accent-glow:  rgba(175, 58, 3, 0.20);
+  --accent-glow-s:rgba(175, 58, 3, 0.40);
   --neon:         #d65d0e;
-  --card-bg:    rgba(242, 229, 188, 0.55);
-  --card-border:#ebdbb2;
-  --glass:      rgba(249, 245, 215, 0.78);
-  --star-color: rgba(60, 56, 54, 0.04);
-  --star-bright:rgba(175, 58, 3, 0.15);
+  --card-bg:    rgba(242, 229, 188, 0.60);
+  --card-border:rgba(175, 58, 3, 0.15);
+  --glass:      rgba(253, 244, 227, 0.90);
+  --star-color: rgba(175, 58, 3, 0.06);
+  --star-bright:rgba(214, 93, 14, 0.12);
+  --nebula1: rgba(175, 58, 3, 0.07);
+  --nebula2: rgba(214, 93, 14, 0.05);
+  --nebula3: rgba(181, 118, 20, 0.04);
   color-scheme: light;
 }
 
 [data-theme="dark"] {
-  --bg:       #1d2021;
-  --bg-deep:  #141617;
-  --bg1:      #282828;
-  --bg2:      #3c3836;
-  --bg3:      #504945;
+  --bg:       #0d1117;
+  --bg-deep:  #080b0f;
+  --bg1:      #151b23;
+  --bg2:      #1e2630;
+  --bg3:      #2a3440;
   --fg:       #ebdbb2;
   --fg-soft:  #d5c4a1;
   --fg-muted: #a89984;
@@ -36,13 +39,16 @@
   --blue: #83a598; --purple: #d3869b; --aqua: #8ec07c; --orange: #fe8019;
   --accent:       #8ec07c;
   --accent-glow:  rgba(142, 192, 124, 0.18);
-  --accent-glow-s:rgba(142, 192, 124, 0.4);
+  --accent-glow-s:rgba(142, 192, 124, 0.40);
   --neon:         #b8bb26;
-  --card-bg:    rgba(40, 40, 40, 0.5);
-  --card-border:#3c3836;
-  --glass:      rgba(20, 22, 23, 0.85);
-  --star-color: rgba(235, 219, 178, 0.06);
-  --star-bright:rgba(142, 192, 124, 0.12);
+  --card-bg:    rgba(21, 27, 35, 0.65);
+  --card-border:rgba(142, 192, 124, 0.12);
+  --glass:      rgba(8, 11, 15, 0.88);
+  --star-color: rgba(142, 192, 124, 0.06);
+  --star-bright:rgba(142, 192, 124, 0.15);
+  --nebula1: rgba(142, 192, 124, 0.08);
+  --nebula2: rgba(184, 187, 38, 0.06);
+  --nebula3: rgba(131, 165, 152, 0.05);
   color-scheme: dark;
 }
 
@@ -72,7 +78,7 @@ body {
 
 /* ── Keyframes ── */
 @keyframes fade-up { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 @keyframes pulse-neon {
   0%,100% { box-shadow: 0 0 8px var(--accent-glow), 0 0 24px var(--accent-glow); }
   50%     { box-shadow: 0 0 16px var(--accent-glow-s), 0 0 48px var(--accent-glow); }
@@ -84,6 +90,13 @@ body {
 @keyframes gradient-flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes twinkle { 0%,100% { opacity: 0.15; } 50% { opacity: 0.8; } }
+@keyframes drift { 0% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(30px,-20px) rotate(5deg); } 100% { transform: translate(0,0) rotate(0deg); } }
+@keyframes drift2 { 0% { transform: translate(0,0); } 50% { transform: translate(-20px,15px); } 100% { transform: translate(0,0); } }
+@keyframes ring-pulse { 0%,100% { opacity: .15; transform: scale(1); } 50% { opacity: .3; transform: scale(1.05); } }
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg); }
+}
 
 .animate-fade-up { animation: fade-up 0.65s ease-out both; }
 .animate-float { animation: float 5s ease-in-out infinite; }
@@ -197,7 +210,6 @@ body {
   .section-padding { padding: 10rem 4rem; }
 }
 
-/* Wrapper: centers content on all screens */
 .section-inner {
   width: 100%;
   max-width: 1200px;
@@ -234,6 +246,12 @@ body {
   border-color: var(--accent);
   box-shadow: 0 0 32px var(--accent-glow), 0 16px 48px rgba(0,0,0,0.15);
   transform: translateY(-6px);
+}
+
+/* ── Equal height service cards ── */
+.glass-card-equal {
+  height: 100%;
+  min-height: 280px;
 }
 
 /* ── Scan line ── */

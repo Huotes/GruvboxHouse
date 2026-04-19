@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { Quote, MessageCircle } from "lucide-react";
 import { useInView } from "@/lib/useInView";
 import { WA_LINK } from "@/lib/constants";
+import { Spaceship, Planet } from "./SpaceDecorations";
 
 const STATS = [
   { v: "50+", l: "Projetos entregues" },
@@ -140,12 +141,14 @@ export function CTA() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="animate-pulse-neon mx-auto mt-24 max-w-4xl overflow-hidden rounded-3xl p-12 text-center sm:p-20"
+          className="animate-pulse-neon relative mx-auto mt-24 max-w-4xl overflow-hidden rounded-3xl p-12 text-center sm:p-20"
           style={{
             background:
               "linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--neon) 70%, var(--accent)))",
           }}
         >
+          <Spaceship x="5%" y="10%" size={60} className="opacity-30" />
+          <Planet size={50} x="85%" y="-10%" color="var(--bg)" className="opacity-20" />
           <div
             className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-20"
             style={{ background: "var(--bg)" }}

@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import Image from "next/image";
 import { motion } from "motion/react";
-import { Send, Mail, Clock } from "lucide-react";
+import { Send, Mail, Clock, MessageCircle } from "lucide-react";
 import { useInView } from "@/lib/useInView";
 import { WA_LINK, WA_DISPLAY, EMAIL } from "@/lib/constants";
 
@@ -20,7 +19,7 @@ export function Contact() {
 
   function submit(e: FormEvent) {
     e.preventDefault();
-    const s = encodeURIComponent(`[Gruvbox House] Contato de ${f.name}`);
+    const s = encodeURIComponent(`[GruvboxHouse] Contato de ${f.name}`);
     const b = encodeURIComponent(
       `Nome: ${f.name}\nE-mail: ${f.email}\n\n${f.message}`,
     );
@@ -98,14 +97,12 @@ export function Contact() {
             >
               <div
                 className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl"
-                style={{ background: "rgba(37,211,102,0.12)" }}
+                style={{
+                  background: "rgba(37,211,102,0.12)",
+                  color: "#25D366",
+                }}
               >
-                <Image
-                  src="/icons/black-whatsapp.svg"
-                  alt="WhatsApp"
-                  width={26}
-                  height={26}
-                />
+                <MessageCircle size={26} />
               </div>
               <div>
                 <h3

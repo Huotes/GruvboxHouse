@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { MessageCircle, Lightbulb, Code2, Rocket } from "lucide-react";
 import { useInView } from "@/lib/useInView";
+import { FloatingAlien, Planet } from "./SpaceDecorations";
 
 const STEPS = [
   {
@@ -40,9 +41,12 @@ export function HowItWorks() {
   return (
     <section
       id="processo"
-      className="section-padding"
+      className="section-padding relative overflow-hidden"
       style={{ background: "var(--bg-deep)" }}
     >
+      <FloatingAlien x="5%" y="10%" size={55} className="opacity-30" />
+      <Planet size={60} x="90%" y="70%" color="var(--accent)" className="opacity-40" />
+
       <div className="section-inner" ref={ref}>
         <motion.span
           initial={{ opacity: 0 }}

@@ -3,13 +3,14 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { useInView } from "@/lib/useInView";
+import { Planet, Spaceship } from "./SpaceDecorations";
 
 const TECHS = [
   {
     name: "Python",
     icon: "/icons/black-python.svg",
     tagline: "Automação & IA",
-    desc: "Automações, análise de dados e inteligência artificial. Seu negócio no piloto automático.",
+    desc: "Automações, análise de dados e inteligência artificial para o seu negócio.",
     color: "var(--blue)",
   },
   {
@@ -26,6 +27,30 @@ const TECHS = [
     desc: "Sites, apps e painéis modernos que funcionam em qualquer tela.",
     color: "var(--green)",
   },
+  {
+    name: "React",
+    icon: null,
+    tagline: "UI Interativa",
+    desc: "Interfaces reativas e componentizadas para experiências ricas e fluidas.",
+    color: "var(--yellow)",
+    letter: "Re",
+  },
+  {
+    name: "Docker",
+    icon: null,
+    tagline: "Infraestrutura",
+    desc: "Containers que garantem deploy rápido e ambientes consistentes em qualquer servidor.",
+    color: "var(--purple)",
+    letter: "Dk",
+  },
+  {
+    name: "PostgreSQL",
+    icon: null,
+    tagline: "Banco de Dados",
+    desc: "Banco relacional robusto e confiável para dados que importam.",
+    color: "var(--orange)",
+    letter: "Pg",
+  },
 ] as const;
 
 export function Technologies() {
@@ -33,9 +58,19 @@ export function Technologies() {
   return (
     <section
       id="tecnologias"
-      className="starfield section-padding"
+      className="starfield section-padding relative overflow-hidden"
       style={{ background: "var(--bg)" }}
     >
+      <Planet
+        size={140}
+        x="-3%"
+        y="30%"
+        color="var(--accent)"
+        rings
+        className="opacity-40"
+      />
+      <Spaceship x="80%" y="85%" size={90} />
+
       <div className="section-inner" ref={ref}>
         <motion.span
           initial={{ opacity: 0 }}
@@ -64,13 +99,13 @@ export function Technologies() {
           Você não precisa entender de tecnologia — a gente domina por você.
         </motion.p>
 
-        <div className="mx-auto mt-16 grid max-w-5xl gap-8 md:grid-cols-3">
+        <div className="mx-auto mt-16 grid max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {TECHS.map((t, i) => (
             <motion.div
               key={t.name}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 + i * 0.1 }}
+              transition={{ delay: 0.2 + i * 0.08 }}
               className="glass-card relative"
             >
               <div
@@ -92,7 +127,16 @@ export function Technologies() {
                 }}
                 transition={{ type: "spring", stiffness: 400 }}
               >
-                <Image src={t.icon} alt={t.name} width={36} height={36} />
+                {t.icon ? (
+                  <Image src={t.icon} alt={t.name} width={36} height={36} />
+                ) : (
+                  <span
+                    className="font-mono text-2xl font-extrabold"
+                    style={{ color: t.color }}
+                  >
+                    {"letter" in t ? t.letter : t.name.slice(0, 2)}
+                  </span>
+                )}
               </motion.div>
               <h3
                 className="font-display text-2xl font-black"
@@ -123,8 +167,8 @@ export function Technologies() {
           className="mx-auto mt-12 max-w-2xl text-sm"
           style={{ color: "var(--fg-muted)" }}
         >
-          Também usamos React, Next.js, Docker, PostgreSQL, Redis e mais —
-          sempre a melhor ferramenta para cada projeto.
+          Também usamos Next.js, Redis, Kubernetes, AWS e mais — sempre a melhor
+          ferramenta para cada projeto.
         </motion.p>
       </div>
     </section>
