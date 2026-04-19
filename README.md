@@ -1,78 +1,52 @@
-# 🏠 Gruvbox House
+# Gruvbox House
 
 **Software sob medida para o seu negócio.**
 
 Site institucional da Gruvbox House — software house focada em automações e desenvolvimento sob encomenda.
 
-## Stack
+## Stack atual (produção)
 
-| Tecnologia     | Versão   |
-|----------------|----------|
-| Next.js        | 16.2.x   |
-| TypeScript     | 6.0.x    |
-| React          | 19.x     |
-| Tailwind CSS   | 4.x      |
-| Lucide React   | 0.475.x  |
-| Motion         | 12.x     |
-| Docker         | Multi-stage |
+Site estático renderizado via **React 18 + Babel standalone** por CDN em `index.html`. Sem build step, sem framework. A Vercel serve os arquivos direto como static site.
 
-## Começando
+| Arquivo / pasta   | Papel                                                 |
+|-------------------|-------------------------------------------------------|
+| `index.html`      | Página única (HTML + CSS + JSX in-browser via Babel)  |
+| `uploads/`        | Imagens referenciadas pelo HTML                       |
+| `vercel.json`     | Headers de cache e segurança                          |
+| `legacy-nextjs/`  | Projeto Next.js anterior, arquivado (não é publicado) |
 
-### Desenvolvimento local
+## Desenvolvimento local
+
+Qualquer servidor estático serve. Ex.:
 
 ```bash
-# Instalar dependências
-npm install
+# Python
+python -m http.server 3000
 
-# Iniciar servidor de desenvolvimento (Turbopack)
-npm run dev
+# Node (npx serve)
+npx serve -p 3000
 ```
 
 Acesse [http://localhost:3000](http://localhost:3000).
 
-### Docker (produção)
+## Deploy
+
+Basta conectar o repositório à Vercel. Sem build command, sem output directory — a Vercel detecta `index.html` na raiz e publica estático. O `vercel.json` aplica:
+
+- Cache longo (1 ano, immutable) em `/uploads/*`
+- `must-revalidate` em `/` e `/index.html`
+- Headers de segurança (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`)
+
+## Projeto Next.js arquivado
+
+A versão anterior em Next.js 16 / React 19 / Tailwind v4 está preservada em `legacy-nextjs/`. Para rodá-la:
 
 ```bash
-# Build e start
-docker compose up --build -d
-
-# Ou manualmente
-docker build -t gruvbox-house .
-docker run -p 3000:3000 gruvbox-house
+cd legacy-nextjs
+npm install
+npm run dev
 ```
-
-## Estrutura do projeto
-
-```
-src/
-├── app/
-│   ├── globals.css      # Tokens Gruvbox + Tailwind v4 + animações
-│   ├── layout.tsx        # Root layout com fonts e ThemeProvider
-│   └── page.tsx          # Página principal
-├── components/
-│   ├── Header.tsx        # Navbar glassmorphism + menu mobile
-│   ├── Hero.tsx          # Hero com gradientes e CTAs
-│   ├── Services.tsx      # Grid de serviços
-│   ├── HowItWorks.tsx    # Processo em 4 passos
-│   ├── Technologies.tsx  # Python, Go, TypeScript
-│   ├── CTA.tsx           # Stats, depoimentos e banner CTA
-│   ├── Contact.tsx       # Formulário de contato (mailto)
-│   ├── Footer.tsx        # Footer com links e créditos
-│   └── index.ts          # Barrel export
-├── context/
-│   └── ThemeContext.tsx   # Dark/light theme com localStorage
-└── lib/
-    └── useInView.ts      # Hook de IntersectionObserver
-```
-
-## Temas
-
-O site suporta tema **claro** e **escuro**, ambos baseados na paleta [Gruvbox](https://github.com/morhetz/gruvbox). O toggle está no header e respeita a preferência do sistema operacional no primeiro acesso.
 
 ## Contato
 
-📧 gruvboxhouse@gmail.com
-
----
-
-Feito com ❤️ e muito café.
+gruvboxhouse@gmail.com

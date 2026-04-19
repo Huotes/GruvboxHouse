@@ -1,11 +1,16 @@
 # dependencies
 node_modules/
+legacy-nextjs/node_modules/
 .pnp/
 .pnp.js
 
 # next.js
 .next/
+legacy-nextjs/.next/
 out/
+
+# vercel
+.vercel/
 
 # production
 build/
