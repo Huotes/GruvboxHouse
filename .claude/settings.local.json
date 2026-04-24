@@ -5,7 +5,9 @@
       "Bash(npm install *)",
       "Bash(./node_modules/.bin/tsc --noEmit)",
       "Bash(echo \"EXIT=$?\")",
-      "Bash(./node_modules/.bin/next build *)"
+      "Bash(./node_modules/.bin/next build *)",
+      "Bash(dir node_modules)",
+      "Bash(npm run *)"
     ]
   }
 }
